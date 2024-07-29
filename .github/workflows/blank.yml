@@ -6,6 +6,8 @@ on:
     branches: [ "main" ]
 
   workflow_dispatch:
+env:
+  LAST_CREDENTIAL_ROLL: ${{ vars.LAST_CREDENTIAL_ROLL }}
 
 jobs:
   build:
