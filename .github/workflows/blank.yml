@@ -1,0 +1,26 @@
+name: Check LAST_CREDENTIAL_ROLL
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run
+        run: |
+          if ! echo 2024-01-01 | grep -q '[0-9]*-[0-9]*-[0-9]'; then
+            echo "INVALID DATE: $LAST_CREDENTIAL_ROLL"
+            exit 1
+          fi
+          if [ `date -d "$LAST_CREDENTIAL_ROLL+150days" +"%s"` -lt `date +"%s"` ]; then
+            echo "CREDENTIALS EXPIRING. Last roll $LAST_CREDENTIAL_ROLE."
+            echo "Create a new credential for the app registration in the Azure portal,"
+            echo "update vault, deploy, and then update the LAST_CREDENTIAL_ROLL Actions"
+            echo "repository variable in this repository."
+            exit 1
+          fi
