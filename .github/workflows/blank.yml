@@ -20,7 +20,7 @@ jobs:
             exit 1
           fi
           if [ `date -d "$LAST_CREDENTIAL_ROLL+150days" +"%s"` -lt `date +"%s"` ]; then
-            echo "CREDENTIALS EXPIRING. Last roll $LAST_CREDENTIAL_ROLE."
+            echo "CREDENTIALS EXPIRING. Last roll $LAST_CREDENTIAL_ROLL."
             echo "Create a new credential for the app registration in the Azure portal,"
             echo "update vault, deploy, and then update the LAST_CREDENTIAL_ROLL Actions"
             echo "repository variable in this repository."
